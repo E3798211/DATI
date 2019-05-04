@@ -1,6 +1,6 @@
 # Compile settings
 CC=gcc
-CFLAGS=-Wall -std=c11
+CFLAGS=-Wall
 LFLAGS=
 
 # Sources
