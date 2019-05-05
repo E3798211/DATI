@@ -298,7 +298,9 @@ static int print_args(struct ipcs* info)
             return -EXIT_FAILURE;
         }
     }
-    return EXIT_SUCCESS;
+
+    // Return from infinite loop == error
+    return -EXIT_FAILURE;
 }
 
 int first_action(struct ipcs* info, char* args[], int n_args)
@@ -328,7 +330,12 @@ int first_action(struct ipcs* info, char* args[], int n_args)
     }
 
     /* Main action */
-    print_args(info);
+    res = print_args(info);
+    if (res < 0)
+    {
+        printf("print_args() failed\n");
+        return -EXIT_FAILURE;
+    }
 
     return EXIT_SUCCESS;
 }
