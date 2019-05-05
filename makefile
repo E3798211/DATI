@@ -16,13 +16,13 @@ BINARY=$(BIN)/echoloop
 
 # Specific variables
 debug:		CFLAGS +=-DDEBUG -g
-release:    CFLAGS +=-O2
+release:    CFLAGS +=-O2 -DNDEBUG
 
 all: debug
 
 debug release:  $(BINARY)
 
-$(BINARY): $(OBJECTS) 
+$(BINARY): $(OBJECTS) $(HEADERS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
 $(OBJ)/%.o: $(SRC)/%.c

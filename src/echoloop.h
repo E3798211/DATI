@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <string.h>
 #include <assert.h>
 #include <errno.h>
 #include <sys/types.h>
@@ -24,24 +25,32 @@
 #define PAGESIZE 4096
 
 /* Assuming unique */
-#define SERVICE_PROJ_PATH   "/"
-#define PROJ_ID   777
+#define PROJ_PATH   "/"
+#define PROJ_ID     777
 
 #define N_SEMS 2
 
 struct ipcs
 {
-    key_t service_key;
-    key_t main_key;
-    int   sem_id;
     int   service_shm_id;
+    int   sem_id;
     void* service_shm;
-    void* main_shm;
-    int   main_shm_id;
 };
 
+struct main_shm_t
+{
+    size_t size;
+    size_t filled;
+    int id;
+};
+
+#define SEPARATOR '\n'
 
 int init(struct ipcs* info);
+/* Takes shm lock inside */
+int process_is_first(struct ipcs* info);
+int first_action(struct ipcs* info, char* args[], int n_args);
+int late_action (struct ipcs* info, char* args[], int n_args);
 
 #endif // ECHOLOOP_H_INCLUDED
 
