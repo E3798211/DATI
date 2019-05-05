@@ -141,7 +141,7 @@ static int resize_shm(struct ipcs* info, struct main_shm_t* main_shm_info,
     /* New memory prepared, substituting old service info with new. */
     memcpy(info->service_shm, main_shm_info, sizeof(*main_shm_info));
 
-    /* Cleaning old info. If process dies, garbage will left but it
+    /*  Cleaning old info. If process dies, garbage will left but it
         won't affect existing processes. */
     errno = 0;
     res = shmdt(*old_shm);
@@ -289,7 +289,6 @@ static int print_args(struct ipcs* info)
             perror("shmdt() failed\n");
             return -EXIT_FAILURE;
         }
-
 
         res = release_shm_lock(info);
         if (res < 0)

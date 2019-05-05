@@ -22,18 +22,19 @@
 
 /* Most common value, simple way.
     sysconf(_SC_PAGESIZE); can be used to be sure */
-#define PAGESIZE 4096
+#define PAGESIZE    4096
 
 /* Assuming unique */
 #define PROJ_PATH   "/"
 #define PROJ_ID     777
 
-#define N_SEMS 2
+#define N_SEMS      2
+#define SEPARATOR '\n'
 
 struct ipcs
 {
-    int   service_shm_id;
     int   sem_id;
+    int   service_shm_id;
     void* service_shm;
 };
 
@@ -41,16 +42,14 @@ struct main_shm_t
 {
     size_t size;
     size_t filled;
-    int id;
+    int    id;
 };
 
-#define SEPARATOR '\n'
-
-int init(struct ipcs* info);
+int init            (struct ipcs* info);
 /* Takes shm lock inside */
 int process_is_first(struct ipcs* info);
-int first_action(struct ipcs* info, char* args[], int n_args);
-int late_action (struct ipcs* info, char* args[], int n_args);
+int first_action    (struct ipcs* info, char* args[], int n_args);
+int late_action     (struct ipcs* info, char* args[], int n_args);
 
 #endif // ECHOLOOP_H_INCLUDED
 

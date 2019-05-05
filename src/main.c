@@ -31,10 +31,10 @@ int main(int argc, char* argv[])
     dbg_printf("Process is %s\n", (first? "first":"late"));
 
     if (first)
-        first_action(&info, &argv[1], argc - 1);
+        res = first_action(&info, &argv[1], argc - 1);
     else
-        late_action (&info, &argv[1], argc - 1);
+        res = late_action (&info, &argv[1], argc - 1);
 
-    return EXIT_SUCCESS;
+    return res;
 }
 
